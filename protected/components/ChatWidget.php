@@ -2,7 +2,7 @@
 
 Yii::import('zii.widgets.CPortlet');
 
-class Chat extends CPortlet
+class ChatWidget extends CPortlet
 {
 	protected function renderContent()
 	{		
@@ -16,6 +16,9 @@ class Chat extends CPortlet
 			Yii::app()->assetManager->publish('js/chat.js')
 		);
 	
-		$this->render('chat');
+		$data = array (
+			"list" => Chat::model()->getLast(),
+		);
+		$this->render('chatwidget', $data);
 	}
 }
