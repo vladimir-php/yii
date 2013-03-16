@@ -83,6 +83,19 @@ class Chat extends CActiveRecord
 		));
 	}
 	
+	
+	/**
+	 * Add new message
+	 *
+	 * @param string
+	 */
+	public function Add ($text)
+	{
+		$message = new Chat;
+		$message->chatmessage_message	= $text;
+		$message->save();
+	}
+	
 
 	/**
 	 * This is invoked before the record is saved.
@@ -93,7 +106,7 @@ class Chat extends CActiveRecord
 		if(parent::beforeSave())
 		{
 			if($this->isNewRecord)
-				$this->create_time=time();
+				$this->chatmessage_date = date("Y-m-d H:i:s");
 			return true;
 		}
 		else

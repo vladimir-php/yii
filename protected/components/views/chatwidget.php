@@ -6,7 +6,8 @@
 				<div>- <?=$item->chatmessage_date?><?=$item->chatmessage_message?></div>
 			<? endforeach; ?>
 		</div>
-		<input type="text" class="message-field" name="message" /><button type="submit">send</button>
+		<input type="text" class="message-field" name="message" />
+		<button type="submit" onclick="Chat.Add(); return false">send</button>
 	</div>
 	<br clear="all" />
 </div>
