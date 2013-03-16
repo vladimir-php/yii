@@ -18,7 +18,6 @@
 </head>
 
 <body>
-
 <div class="container" id="page">
 
 	<div id="header">
@@ -48,6 +47,9 @@
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
+
+	<!-- chat-widget -->
+	<?php $this->widget('Chat'); ?>
 
 </div><!-- page -->
 
