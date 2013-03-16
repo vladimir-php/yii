@@ -14,7 +14,7 @@ class ChatController extends Controller
 	public function actionAddmessage ()
 	{
 		$message = strip_tags($_REQUEST["message"]);
-		if (!$message || strlen($message) >= 100) {
+		if (!$message || strlen($message) >= Chat::MaxMessageLength) {
 			return;
 		}
 		$message = htmlspecialchars($message, ENT_QUOTES);

@@ -11,4 +11,5 @@
 </div>
 <script type="text/javascript">
 	Chat.Init ();
+	Chat.message_limit = <?=Chat::MaxMessageLength?>;
 </script>

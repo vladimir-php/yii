@@ -11,6 +11,8 @@ class Chat extends CActiveRecord
 	const StatusDeny		= 0;
 	const StatusApproved	= 1;
 	
+	const MaxMessageLength = 100;
+	
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -38,7 +40,7 @@ class Chat extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array(self::Message, 'required'),
-			array(self::Message, 'length', 'max'=>100),
+			array(self::Message, 'length', 'max'=>self::MaxMessageLength),
 		);
 	}
 

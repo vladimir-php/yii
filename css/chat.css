@@ -41,6 +41,7 @@
 	height:270px;
 	margin:20px;
 	background:#FFFFFF;
+	overflow:scroll !important;
 }
 .chat-window .content .message-field {
 	width:300px;

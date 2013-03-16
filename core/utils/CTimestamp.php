@@ -373,4 +373,175 @@ class CTimestamp
 			return $is_gmt? @gmmktime($hr,$min,$sec): @mktime($hr,$min,$sec);
 		return $is_gmt ? @gmmktime($hr,$min,$sec,$mon,$day,$year) : @mktime($hr,$min,$sec,$mon,$day,$year);
 	}
+	
+	
+	/**
+	 * Интервал между датами
+	 *
+	 * @param date
+	 * @param date
+	 * @param string
+	 * @return date
+	 */
+	public static function dateInterval ($date_from, $date_to, $sep = false)
+	{
+		if (!is_numeric($date_from)) {
+			$date_from = strtotime($date_from);
+		}
+		
+		if (!is_numeric($date_to)) {
+			$date_to = strtotime($date_to);
+		}
+		
+		$date = $date_to - $date_from;
+		
+		$_date = self::getDateByParts ($date);
+		
+		if ($sep) {
+			return $_date[$sep];
+		}
+		
+		return $_date;
+		
+	}
+	
+	
+	/**
+	 * Склонения названий периодов
+	 *
+	 * @return array
+	 */
+	public static function getDateCases ()
+	{
+		$cases = array (
+			"year"		=> array ("год", "года", "лет"),
+			"month"		=> array ("месяц", "месяца", "месяцев"),
+			"day"		=> array ("день", "дня", "дней"),
+			"hour"		=> array ("час", "часа", "часов"),
+			"min"		=> array ("минуту", "минуты", "минут"),
+		);
+		return $cases;
+	}
+		
+	
+	/**
+	 * Получаем дату разбитую на соотв. периоды
+	 *
+	 * @param date
+	 * @return array
+	 */
+	public static function getDateByParts ($date)
+	{
+		if (!is_numeric($date)) {
+			$date = strtotime($date);
+		}
+		
+		$_date = array ();
+		$_date['years']		= floor($date/3600/24/365);
+		$_date['monthes']	= floor($date/3600/24/30);
+		$_date['days']		= floor($date/3600/24);
+		$_date['hours']		= floor($date/3600);
+		$_date['mins']		= floor($date/60);
+		
+		return $_date;
+	}
+	
+	
+	/**
+	 * Преобразование даты в дату для комментариев
+	 *
+	 * @param date
+	 * @return string
+	 */
+	public static function getStrDateBack ($date)
+	{	
+		if (!is_numeric($date)) {
+			$date = strtotime($date);
+		}
+		
+		$_date = self::dateInterval ($date, date("Y-m-d H:i:s"));
+		
+		if ($_date['years'] || $_date['monthes'] || $_date['days'] > 7) {
+			return date("Y-m-d H:i:s", $date);
+		}
+		
+		// сейчас
+		$now = true;
+		foreach ($_date as $interval) {
+			if ($interval) {
+				$now = false;
+				break;
+			}
+		}
+		
+		if ($now) {
+			return "0 минут назад";
+		}
+	
+		$cases = self::getDateCases();
+		$cases['min'][0] = "минуту"; // корректировка под соотв. падеж
+		$values = array (
+			"days"	=> "day", 
+			"hours"	=> "hour", 
+			"mins"	=> "min",
+		);
+		foreach ($values as $key_val => $key_case) {
+			if ($_date[$key_val] || $key_val == "mins") {
+				return $_date[$key_val] ." ". self::ncase($_date[$key_val], $cases[$key_case]) ." назад";
+			}
+		}
+	
+	}
+	
+	
+	/**
+	 * ncase number
+	 *
+	 * get ncase number by count
+	 *
+	 * @access	public
+	 * @param	integer
+	 * @return	integer
+	 */	
+	public static function getCaseNumber ($num)
+	{
+		if (strlen($num) > 3)
+			$num = substr(strval($num), -2);
+		
+		$num = abs(intval($num));
+		
+		if ($num > 10 && $num < 20)
+			return 2;
+			
+		$num0 = $num % 10;
+	
+		if ($num0 == 1)
+			return 0; // Запись
+			
+		if ($num0 >= 2 && $num0 <= 4)
+			return 1; // Записи	
+		
+		if ($num0 == 0 || $num0 >= 5) 
+			return 2; // Записей
+			
+	}
+	
+	/**
+	 * ncase word
+	 *
+	 * get ncase word by count
+	 *
+	 * @access	public
+	 * @param	integer
+	 * @param	array
+	 * @return	array element
+	 */	
+	public static function ncase ($count, $cases)
+	{	
+		$num = self::getCaseNumber ($count);
+		
+		return $cases[$num];
+		
+	}
+		
 }
