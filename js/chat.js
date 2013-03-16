@@ -7,7 +7,8 @@ var Chat = {
 	
 	message_limit : 100,
 	
-	message_field : null,
+	message_list_box	: null,
+	message_field		: null,
 	
 	is_window_show : false,
 	
@@ -16,7 +17,10 @@ var Chat = {
 		Chat.switch_box		= Chat.window_box.find(".switch");
 		Chat.content_box	= Chat.window_box.find(".content");
 		
-		Chat.message_field	= Chat.window_box.find("[name=message]");
+		Chat.message_list_box	= Chat.window_box.find(".messages");
+		Chat.message_field		= Chat.window_box.find("[name=message]");
+		
+		setInterval (Chat.LoadList, 5000);
 	},
 	
 	switchView : function () {
@@ -56,7 +60,7 @@ var Chat = {
 			},
 			
 			success: function (result) {
-				      
+				Chat.message_list_box.html (result);
 			}
 		});
 	},
@@ -73,7 +77,7 @@ var Chat = {
 			},
 			
 			success: function (result) {
-				      
+				Chat.message_list_box.html (result);
 			}
 		});
 	}

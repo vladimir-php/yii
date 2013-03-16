@@ -2,9 +2,7 @@
 	<div class="switch" onclick="Chat.switchView()"></div>
 	<div class="content">
 		<div class="messages" align="left">
-			<? foreach ($list as $item): ?>
-				<div>- <?=$item->chatmessage_date?><?=$item->chatmessage_message?></div>
-			<? endforeach; ?>
+			<? $this->renderMessageList (); ?>
 		</div>
 		<input type="text" class="message-field" name="message" />
 		<button type="submit" onclick="Chat.Add(); return false">send</button>

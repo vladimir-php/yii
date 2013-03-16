@@ -19,6 +19,9 @@ class ChatController extends Controller
 		}
 		$message = htmlspecialchars($message, ENT_QUOTES);
 		Chat::model()->Add($message);
+		
+		// render messsage list for response
+		$this->actionLoadlist ();
 	}	
 	
 	
@@ -27,7 +30,8 @@ class ChatController extends Controller
 	 */
 	public function actionLoadlist ()
 	{
-		print_r(Chat::model()->getLast());
+		$ChatWidget = new ChatWidget();
+		$ChatWidget->renderMessageList ();
 	}	
 
 
