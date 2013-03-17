@@ -120,4 +120,26 @@ class User extends CActiveRecord
 		$salt.=strtr(substr(base64_encode($rand),0,22),array('+'=>'.'));
 		return $salt;
 	}
+	
+	
+	/**
+	 * Get user list
+	 *
+	 * @param array
+	 * @return array
+	 */
+	public function getListByListId ($user_ids)
+	{
+		if (!$user_ids) {
+			return array ();
+		}
+		$user_ids = implode (",", $user_ids);
+		
+		return $this->findAll(array(
+			'condition'	=>'t.id in ('.$user_ids.')',
+		));
+	}
+	
+
+	
 }

@@ -4,6 +4,7 @@ class Chat extends CActiveRecord
 	const Table		= "chatmessage";
 
 	const Id 		= "chatmessage_id";
+	const UserId 	= "chatmessage_user_id";
 	const Message	= "chatmessage_message";
 	const Status	= "chatmessage_status";
 	const Date		= "chatmessage_date";
@@ -105,13 +106,15 @@ class Chat extends CActiveRecord
 	 */
 	protected function beforeSave()
 	{
-		if(parent::beforeSave())
-		{
-			if($this->isNewRecord)
+		if (parent::beforeSave()) {
+			if ($this->isNewRecord) {
+				$this->chatmessage_user_id = (Yii::app()->user->isGuest) ? -1 : Yii::app()->user->getId();
 				$this->chatmessage_date = date("Y-m-d H:i:s");
+			}
 			return true;
 		}
-		else
+		else {
 			return false;
+		}
 	}
 }
