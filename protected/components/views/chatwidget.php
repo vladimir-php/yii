@@ -1,5 +1,7 @@
 <div class="chat-window">
-	<div class="switch" onclick="Chat.switchView()"></div>
+	<div class="switch" onclick="Chat.switchView()">
+		<div class="switch-icon"><</div>
+	</div>
 	<div class="content">
 		<div class="messages" align="left">
 			<? $this->renderMessageList (); ?>

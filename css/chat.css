@@ -28,6 +28,11 @@
 	border-radius: 10px 0px 0px 10px;
 	cursor:pointer;
 }
+.chat-window .switch-icon {
+	padding-top:150px;
+	font-size:22px;
+	font-weight:bold;
+}
 
 .chat-window .content {
 	float:right; 

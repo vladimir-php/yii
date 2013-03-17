@@ -1,9 +1,10 @@
 // JavaScript Document
 var Chat = {
 	
-	window_box	: null,
-	switch_box	: null,
-	content_box	: null,
+	window_box		: null,
+	switch_box		: null,
+	switch_icon_box	: null,
+	content_box		: null,
 	
 	message_limit : 0,
 	
@@ -13,9 +14,10 @@ var Chat = {
 	is_window_show : false,
 	
 	Init: function () {
-		Chat.window_box		= $(".chat-window");
-		Chat.switch_box		= Chat.window_box.find(".switch");
-		Chat.content_box	= Chat.window_box.find(".content");
+		Chat.window_box			= $(".chat-window");
+		Chat.switch_box			= Chat.window_box.find(".switch");
+		Chat.switch_icon_box	= Chat.window_box.find(".switch-icon");
+		Chat.content_box		= Chat.window_box.find(".content");
 		
 		Chat.message_list_box	= Chat.window_box.find(".messages");
 		Chat.message_field		= Chat.window_box.find("[name=message]");
@@ -39,6 +41,7 @@ var Chat = {
 			Chat.content_box.show();
 			Chat.window_box.addClass ("open");
 			Chat.is_window_show = true;
+			Chat.switch_icon_box.html(">");
 			
 			// при открытии окна - обновляем данные (на всякий случай чтобы были актуальные записи)
 			Chat.LoadList ();
@@ -47,6 +50,7 @@ var Chat = {
 			Chat.content_box.hide();
 			Chat.window_box.removeClass ("open");
 			Chat.is_window_show = false;
+			Chat.switch_icon_box.html("<");
 		}
 	},
 	
