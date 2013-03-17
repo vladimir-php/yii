@@ -75,7 +75,7 @@ class User extends CActiveRecord
 	 */
 	public function validatePassword($password)
 	{
-		return crypt($password,$this->password)===$this->password;
+		return ($this->password == md5($password));//crypt($password,$this->password)===$this->password;
 	}
 
 	/**
@@ -85,7 +85,7 @@ class User extends CActiveRecord
 	 */
 	public function hashPassword($password)
 	{
-		return crypt($password, $this->generateSalt());
+		return md5($password);//crypt($password, $this->generateSalt());
 	}
 
 	/**

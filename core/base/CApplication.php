@@ -446,6 +446,16 @@ abstract class CApplication extends CModule
 	{
 		return $this->getComponent('errorHandler');
 	}
+	
+	
+	/**
+	 * Returns the error handler component.
+	 * @return CErrorHandler the error handler application component.
+	 */
+	public function isChatEnable()
+	{
+		return $this->getComponent('chat');
+	}
 
 	/**
 	 * Returns the security manager component.

@@ -20,12 +20,19 @@ return array(
 
 	'defaultController'=>'post',
 
+
 	// application components
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
 		),
+		
+		'chat'=>array(
+            'class'		=>'ChatWidget',
+			'enabled'	=> true,
+        ),
+		
 		/*'db'=>array(
 			'connectionString' => 'sqlite:protected/data/blog.db',
 			'tablePrefix' => 'tbl_',

@@ -10,6 +10,14 @@ class ChatWidget extends CPortlet
 	 */
 	protected function renderContent()
 	{		
+		// if was disabled in config
+		if (!Yii::app()->isChatEnable() ) {
+			return;
+		}
+	
+		// jquery-files
+		Yii::app()->clientScript->registerCoreScript('jquery');
+			
 		// css-file
 		Yii::app()->clientScript->registerCssFile(
 			Yii::app()->assetManager->publish('css/chat.css')
